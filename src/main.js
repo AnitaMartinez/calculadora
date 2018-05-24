@@ -1,30 +1,43 @@
 function application() {
 
     function start() {
-        const buttonAdd = document.getElementById("add");
+        const addButton = document.getElementById("add");
         const numbers = document.querySelectorAll(".input-numbers");
-
-        buttonAdd.addEventListener("click", function () {
-            console.log("hola");
-        });
-    }
-
-
-    function sum(...numbers) {
-        function addTwoNumbers(a, b) {
-            return a + b;
+        const calculateButton = document.getElementById("calculate");
+        for (const number of numbers) {
+            number.addEventListener("click", getNumberUser);
         }
-        const sum = numbers.reduce(addTwoNumbers);
-        return sum;
+        calculateButton.addEventListener("click", calculateResult);
     }
 
-    function substract(...numbers) {
-        function substractTwoNumbers(a, b) {
-            return a - b;
-        }
-        const substract = numbers.reduce(substractTwoNumbers);
-        return substract;
+    let operator;
+    var operators = {
+        '+': sum,
+        '-': substract
+    };
+
+    const numbersUser = [];
+
+
+    function sum(a, b) {
+        operator = "+"; //refactor
+        return a + b;
     }
+
+    function substract(a, b) {
+        return a - b;
+    }
+
+    function getNumberUser(event) {
+        valueUser = event.currentTarget.value;
+        numbersUser.push(parseInt(valueUser));
+    }
+
+    function calculateResult() {
+        console.log(operators['+'](numbersUser[0], numbersUser[1]));
+    }
+
+
 
     return {
         sum: sum,
