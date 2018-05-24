@@ -9,13 +9,15 @@ function application() {
         const addButton = document.getElementById("add");
         const calculateButton = document.getElementById("calculate");
         prepareNumbersToBeClicked();
+        prepareOperatorsToBeClicked();
         calculateButton.addEventListener("click", calculateResult);
+    }
 
+    function prepareOperatorsToBeClicked() {
         const operatorsButton = document.querySelectorAll(".operator");
         for (const operator of operatorsButton) {
             operator.addEventListener("click", getOperator);
         }
-
     }
 
     function prepareNumbersToBeClicked() {
@@ -42,17 +44,26 @@ function application() {
         '-': substract
     };
     function calculateResult() {
-        console.log(operators[operator](numbersUser[0], numbersUser[1]));
+        console.log(operators[operator](...numbersUser));
+        numbersUser.length = 0;
     }
 
     //business logic
 
-    function sum(a, b) {
-        return a + b;
+    function sum(...numbers) {
+        function addTwoNumbers(a, b) {
+            return a + b;
+        }
+        const sum = numbers.reduce(addTwoNumbers);
+        return sum;
     }
 
-    function substract(a, b) {
-        return a - b;
+    function substract(...numbers) {
+        function substractTwoNumbers(a, b) {
+            return a - b;
+        }
+        const substraction = numbers.reduce(substractTwoNumbers);
+        return substraction;
     }
 
 
