@@ -1,13 +1,31 @@
 function application() {
 
-    function sum() {
-        return 1 + 1;
+    function start() {
+        const buttonAdd = document.getElementById("add");
+
+        buttonAdd.addEventListener("click", function () {
+            console.log("hola");
+        });
     }
 
+
+    function sum(...numbers) {
+
+        function add(a, b) {
+            return a + b
+        }
+
+        const sum = numbers.reduce(add);
+
+        return sum;
+
+    }
 
     return {
-        sum
-    }
+        sum: sum,
+        start: start
+    };
+
 
 }
 
