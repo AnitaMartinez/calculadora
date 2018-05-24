@@ -2,49 +2,27 @@ function application() {
     'use strict';
 
     const numbersUser = [];
-    let operator = "";
-    let valueUser;
+    var stringOperationUser = "";
 
     function start() {
-        const addButton = document.getElementById("add");
         prepareNumbersToBeClicked();
         prepareOperatorsToBeClicked();
     }
-
-    var operators = {
-        '+': sum,
-        '-': substract
-    };
 
     function onEqualOperator() {
         calculateResult();
         resetNumbersUserList();
     }
 
-    function calculateResult() {
-        console.log(operators[operator](...numbersUser));
-    }
-
     function resetNumbersUserList() {
-        numbersUser.length = 0;
+        stringOperationUser = "";
     }
 
-    //business logic
-
-    function sum(...numbers) {
-        function addTwoNumbers(a, b) {
-            return a + b;
-        }
-        const sum = numbers.reduce(addTwoNumbers);
-        return sum;
-    }
-
-    function substract(...numbers) {
-        function substractTwoNumbers(a, b) {
-            return a - b;
-        }
-        const substraction = numbers.reduce(substractTwoNumbers);
-        return substraction;
+    function calculateResult() {
+        console.log(stringOperationUser);
+        const operationUser = stringOperationUser.split(" ");
+        const result = eval(operationUser.join(' '));
+        console.log(result);
     }
 
     //DOM
@@ -66,21 +44,16 @@ function application() {
     }
 
     function getNumberUser(event) {
-        valueUser = event.currentTarget.value;
-        numbersUser.push(parseInt(valueUser));
-        console.log(numbersUser);
+        const valueUser = event.currentTarget.value;
+        stringOperationUser += valueUser;
     }
 
     function getOperator(event) {
-        operator = event.currentTarget.value;
-        console.log(operator);
+        const operator = event.currentTarget.value;
+        stringOperationUser += operator;
     }
 
-
-
     return {
-        sum: sum,
-        substract: substract,
         start: start
     };
 
