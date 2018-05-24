@@ -1,26 +1,53 @@
 function application() {
+    'use strict';
+
+    const numbersUser = [];
+    let operator = "";
+    let valueUser;
 
     function start() {
         const addButton = document.getElementById("add");
-        const numbers = document.querySelectorAll(".input-numbers");
         const calculateButton = document.getElementById("calculate");
+        prepareNumbersToBeClicked();
+        calculateButton.addEventListener("click", calculateResult);
+
+        const operatorsButton = document.querySelectorAll(".operator");
+        for (const operator of operatorsButton) {
+            operator.addEventListener("click", getOperator);
+        }
+
+    }
+
+    function prepareNumbersToBeClicked() {
+        const numbers = document.querySelectorAll(".input-numbers");
         for (const number of numbers) {
             number.addEventListener("click", getNumberUser);
         }
-        calculateButton.addEventListener("click", calculateResult);
     }
 
-    let operator;
+    function getNumberUser(event) {
+        valueUser = event.currentTarget.value;
+        numbersUser.push(parseInt(valueUser));
+        console.log(numbersUser);
+
+    }
+
+    function getOperator(event) {
+        operator = event.currentTarget.value;
+        console.log(operator);
+    }
+
     var operators = {
         '+': sum,
         '-': substract
     };
+    function calculateResult() {
+        console.log(operators[operator](numbersUser[0], numbersUser[1]));
+    }
 
-    const numbersUser = [];
-
+    //business logic
 
     function sum(a, b) {
-        operator = "+"; //refactor
         return a + b;
     }
 
@@ -28,14 +55,7 @@ function application() {
         return a - b;
     }
 
-    function getNumberUser(event) {
-        valueUser = event.currentTarget.value;
-        numbersUser.push(parseInt(valueUser));
-    }
 
-    function calculateResult() {
-        console.log(operators['+'](numbersUser[0], numbersUser[1]));
-    }
 
 
 
