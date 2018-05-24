@@ -7,44 +7,25 @@ function application() {
 
     function start() {
         const addButton = document.getElementById("add");
-        const calculateButton = document.getElementById("calculate");
         prepareNumbersToBeClicked();
         prepareOperatorsToBeClicked();
-        calculateButton.addEventListener("click", calculateResult);
-    }
-
-    function prepareOperatorsToBeClicked() {
-        const operatorsButton = document.querySelectorAll(".operator");
-        for (const operator of operatorsButton) {
-            operator.addEventListener("click", getOperator);
-        }
-    }
-
-    function prepareNumbersToBeClicked() {
-        const numbers = document.querySelectorAll(".input-numbers");
-        for (const number of numbers) {
-            number.addEventListener("click", getNumberUser);
-        }
-    }
-
-    function getNumberUser(event) {
-        valueUser = event.currentTarget.value;
-        numbersUser.push(parseInt(valueUser));
-        console.log(numbersUser);
-
-    }
-
-    function getOperator(event) {
-        operator = event.currentTarget.value;
-        console.log(operator);
     }
 
     var operators = {
         '+': sum,
         '-': substract
     };
+
+    function onEqualOperator() {
+        calculateResult();
+        resetNumbersUserList();
+    }
+
     function calculateResult() {
         console.log(operators[operator](...numbersUser));
+    }
+
+    function resetNumbersUserList() {
         numbersUser.length = 0;
     }
 
@@ -66,7 +47,34 @@ function application() {
         return substraction;
     }
 
+    //DOM
 
+    function prepareOperatorsToBeClicked() {
+        const operatorsButton = document.querySelectorAll(".operator");
+        const calculateButton = document.getElementById("calculate");
+        for (const operator of operatorsButton) {
+            operator.addEventListener("click", getOperator);
+        }
+        calculateButton.addEventListener("click", onEqualOperator);
+    }
+
+    function prepareNumbersToBeClicked() {
+        const numbers = document.querySelectorAll(".input-numbers");
+        for (const number of numbers) {
+            number.addEventListener("click", getNumberUser);
+        }
+    }
+
+    function getNumberUser(event) {
+        valueUser = event.currentTarget.value;
+        numbersUser.push(parseInt(valueUser));
+        console.log(numbersUser);
+    }
+
+    function getOperator(event) {
+        operator = event.currentTarget.value;
+        console.log(operator);
+    }
 
 
 
