@@ -1,20 +1,23 @@
 function application() {
     'use strict';
 
-    const numbersUser = [];
-    var stringOperationUser = "";
+    let stringOperationUser = "";
 
     function start() {
-        prepareButtonsCalculatorToBeClicked();
+        prepareButtonsToBeClicked();
     }
 
-    function prepareButtonsCalculatorToBeClicked() {
+    function prepareButtonsToBeClicked() {
         const calculatorButtons = document.querySelectorAll(".calculator-buttons");
         for (const button of calculatorButtons) {
             button.addEventListener("click", onButtonsCalculator);
         }
         const calculateButton = document.getElementById("calculate");
         calculateButton.addEventListener("click", onEqualOperator);
+        const resetButton = document.getElementById("reset");
+        resetButton.addEventListener("click", onResetButton);
+        const removeButton = document.getElementById("remove");
+        removeButton.addEventListener("click", onRemoveButton);
     }
 
     function onButtonsCalculator(event) {
@@ -25,6 +28,16 @@ function application() {
     function onEqualOperator() {
         renderOperations(calculateResult());
         resetOperationUser();
+    }
+
+    function onResetButton() {
+        resetOperationUser();
+        renderOperations(stringOperationUser);
+    }
+
+    function onRemoveButton() {
+        removeLastCharacter();
+        renderOperations(stringOperationUser);
     }
 
     function saveValueChosenByUser(event) {
@@ -51,6 +64,10 @@ function application() {
         stringOperationUser = string;
     }
 
+    function removeLastCharacter() {
+        stringOperationUser = stringOperationUser.slice(0, -1);
+    }
+
 
     return {
         start: start,
@@ -58,9 +75,7 @@ function application() {
         setStringOperationUser: setStringOperationUser
     };
 
-
 }
-
 
 
 // be able to import the file in node
