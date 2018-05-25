@@ -21,8 +21,44 @@ function application() {
     function prepareNumbersToBeClicked() {
         const numbers = document.querySelectorAll(".input-numbers");
         for (const number of numbers) {
-            number.addEventListener("click", getNumberUser);
+            number.addEventListener("click", onNumberButton);
         }
+    }
+
+    function onMathOperators(event) {
+        getOperatorUser(event);
+        renderOperation();
+    }
+
+    function getOperatorUser(event) {
+        const operator = event.currentTarget.value;
+        stringOperationUser += operator;
+    }
+
+    function onEqualOperator() {
+        renderResult();
+        resetNumbersUserList();
+    }
+
+    function renderResult() {
+        const screenCalculator = document.getElementById("screen-calculator");
+        screenCalculator.innerHTML = calculateResult();
+    }
+
+    function calculateResult() {
+        const constructor = "constructor";
+        const stringToTransform = `return ${stringOperationUser}`;
+        const result = constructor[constructor][constructor](stringToTransform)();
+        return result;
+    }
+
+    function resetNumbersUserList() {
+        stringOperationUser = "";
+    }
+
+    function onNumberButton(event) {
+        getNumberUser(event);
+        renderOperation();
     }
 
     function getNumberUser(event) {
@@ -30,34 +66,16 @@ function application() {
         stringOperationUser += valueUser;
     }
 
-    function onMathOperators(event) {
-        const operator = event.currentTarget.value;
-        stringOperationUser += operator;
-    }
-
-
-    function onEqualOperator() {
-        calculateResult();
-        resetNumbersUserList();
-    }
-
-    function resetNumbersUserList() {
-        stringOperationUser = "";
-    }
-
-    function calculateResult() {
-        console.log(stringOperationUser);
-        const constructor = "constructor";
-        const stringToTransform = `return ${stringOperationUser}`;
-        const result = constructor[constructor][constructor](stringToTransform)();
-        console.log(result);
-        return result; //Para el test
-
+    function renderOperation() {
+        const screenCalculator = document.getElementById("screen-calculator");
+        screenCalculator.innerHTML = stringOperationUser;
     }
 
     function setStringOperationUser(string) { //Esta es solo para el spec
         stringOperationUser = string;
     }
+
+
 
     return {
         start: start,
