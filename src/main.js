@@ -5,70 +5,46 @@ function application() {
     var stringOperationUser = "";
 
     function start() {
-        prepareNumbersToBeClicked();
-        prepareOperatorsToBeClicked();
+        prepareButtonsCalculatorToBeClicked();
     }
 
-    function prepareOperatorsToBeClicked() {
-        const operatorsButton = document.querySelectorAll(".operator");
-        const calculateButton = document.getElementById("calculate");
-        for (const operator of operatorsButton) {
-            operator.addEventListener("click", onMathOperators);
+    function prepareButtonsCalculatorToBeClicked() {
+        const calculatorButtons = document.querySelectorAll(".calculator-buttons");
+        for (const button of calculatorButtons) {
+            button.addEventListener("click", onButtonsCalculator);
         }
+        const calculateButton = document.getElementById("calculate");
         calculateButton.addEventListener("click", onEqualOperator);
     }
 
-    function prepareNumbersToBeClicked() {
-        const numbers = document.querySelectorAll(".input-numbers");
-        for (const number of numbers) {
-            number.addEventListener("click", onNumberButton);
-        }
-    }
-
-    function onMathOperators(event) {
-        getOperatorUser(event);
-        renderOperation();
-    }
-
-    function getOperatorUser(event) {
-        const operator = event.currentTarget.value;
-        stringOperationUser += operator;
+    function onButtonsCalculator(event) {
+        saveValueChosenByUser(event);
+        renderOperations(stringOperationUser); //Pensar rename
     }
 
     function onEqualOperator() {
-        renderResult();
-        resetNumbersUserList();
+        renderOperations(calculateResult());
+        resetOperationUser();
     }
 
-    function renderResult() {
+    function saveValueChosenByUser(event) {
+        stringOperationUser += event.currentTarget.value;
+    }
+
+    function renderOperations(operation) {
         const screenCalculator = document.getElementById("screen-calculator");
-        screenCalculator.innerHTML = calculateResult();
+        screenCalculator.innerHTML = operation;
     }
 
     function calculateResult() {
         const constructor = "constructor";
-        const stringToTransform = `return ${stringOperationUser}`;
-        const result = constructor[constructor][constructor](stringToTransform)();
+        const stringToCalculate = `return ${stringOperationUser}`;
+        const result = constructor[constructor][constructor](stringToCalculate)();
         return result;
     }
 
-    function resetNumbersUserList() {
+    function resetOperationUser() {
         stringOperationUser = "";
-    }
-
-    function onNumberButton(event) {
-        getNumberUser(event);
-        renderOperation();
-    }
-
-    function getNumberUser(event) {
-        const valueUser = event.currentTarget.value;
-        stringOperationUser += valueUser;
-    }
-
-    function renderOperation() {
-        const screenCalculator = document.getElementById("screen-calculator");
-        screenCalculator.innerHTML = stringOperationUser;
     }
 
     function setStringOperationUser(string) { //Esta es solo para el spec
