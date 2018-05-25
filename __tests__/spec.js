@@ -9,16 +9,19 @@ const app = application();
 describe("basic operations", () => {
 
     it("sums 2 numbers", () => {
-        expect(app.sum(1, 1)).toEqual(2);
+        app.setStringOperationUser("1+1");
+        expect(app.calculateResult()).toEqual(2);
     });
     it("sums more than 2 numbers", () => {
-        expect(app.sum(1, 2, 5)).toEqual(8);
-        expect(app.sum(1, 2, 5, 4, 3435, 2)).toEqual(3449);
+        app.setStringOperationUser("1+2+4+6");
+        expect(app.calculateResult()).toEqual(13);
     });
     it("rests 2 numbers", () => {
-        expect(app.substract(1, 1)).toEqual(0);
+        app.setStringOperationUser("1-4");
+        expect(app.calculateResult()).toEqual(-3);
     });
     it("rests more than 2 numbers", () => {
-        expect(app.substract(1, 34, 34, 4)).toEqual(-71);
+        app.setStringOperationUser("1-4-3");
+        expect(app.calculateResult()).toEqual(-6);
     });
 });

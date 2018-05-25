@@ -23,6 +23,11 @@ function application() {
         const operationUser = stringOperationUser.split(" ");
         const result = eval(operationUser.join(' '));
         console.log(result);
+        return result;
+    }
+
+    function setStringOperationUser(string) { //Esta es solo para el spec
+        stringOperationUser = string;
     }
 
     //DOM
@@ -54,7 +59,9 @@ function application() {
     }
 
     return {
-        start: start
+        start: start,
+        calculateResult: calculateResult,
+        setStringOperationUser: setStringOperationUser
     };
 
 
