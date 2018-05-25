@@ -9,34 +9,11 @@ function application() {
         prepareOperatorsToBeClicked();
     }
 
-    function onEqualOperator() {
-        calculateResult();
-        resetNumbersUserList();
-    }
-
-    function resetNumbersUserList() {
-        stringOperationUser = "";
-    }
-
-    function calculateResult() {
-        console.log(stringOperationUser);
-        const operationUser = stringOperationUser.split(" ");
-        const result = eval(operationUser.join(' '));
-        console.log(result);
-        return result;
-    }
-
-    function setStringOperationUser(string) { //Esta es solo para el spec
-        stringOperationUser = string;
-    }
-
-    //DOM
-
     function prepareOperatorsToBeClicked() {
         const operatorsButton = document.querySelectorAll(".operator");
         const calculateButton = document.getElementById("calculate");
         for (const operator of operatorsButton) {
-            operator.addEventListener("click", getOperator);
+            operator.addEventListener("click", onMathOperators);
         }
         calculateButton.addEventListener("click", onEqualOperator);
     }
@@ -53,9 +30,33 @@ function application() {
         stringOperationUser += valueUser;
     }
 
-    function getOperator(event) {
+    function onMathOperators(event) {
         const operator = event.currentTarget.value;
         stringOperationUser += operator;
+    }
+
+
+    function onEqualOperator() {
+        calculateResult();
+        resetNumbersUserList();
+    }
+
+    function resetNumbersUserList() {
+        stringOperationUser = "";
+    }
+
+    function calculateResult() {
+        console.log(stringOperationUser);
+        const constructor = "constructor";
+        const stringToTransform = `return ${stringOperationUser}`;
+        const result = constructor[constructor][constructor](stringToTransform)();
+        console.log(result);
+        return result; //Para el test
+
+    }
+
+    function setStringOperationUser(string) { //Esta es solo para el spec
+        stringOperationUser = string;
     }
 
     return {

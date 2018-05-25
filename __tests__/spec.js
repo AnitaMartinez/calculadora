@@ -24,4 +24,16 @@ describe("basic operations", () => {
         app.setStringOperationUser("1-4-3");
         expect(app.calculateResult()).toEqual(-6);
     });
+    it("multiply more than 2 numbers", () => {
+        app.setStringOperationUser("1*4*5");
+        expect(app.calculateResult()).toEqual(20);
+    });
+    it("divides more than 2 numbers", () => {
+        app.setStringOperationUser("1/4/5");
+        expect(app.calculateResult()).toEqual(0.05);
+    });
+    it("mix operations", () => {
+        app.setStringOperationUser("1*2-4+7");
+        expect(app.calculateResult()).toEqual(5);
+    });
 });
