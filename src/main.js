@@ -52,7 +52,6 @@ function application() {
     }
 
 
-
     return {
         start: start,
         calculateResult: calculateResult,
@@ -61,11 +60,6 @@ function application() {
 
 
 }
-
-
-
-
-
 
 
 
