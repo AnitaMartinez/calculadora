@@ -1,13 +1,9 @@
 function application() {
     'use strict';
 
-    let stringOperationUser = "";
+    let operation = "";
 
     function start() {
-        prepareButtonsToBeClicked();
-    }
-
-    function prepareButtonsToBeClicked() {
         const calculatorButtons = document.querySelectorAll(".calculator-buttons");
         for (const button of calculatorButtons) {
             button.addEventListener("click", onButtonsCalculator);
@@ -22,50 +18,55 @@ function application() {
 
     function onButtonsCalculator(event) {
         saveValueChosenByUser(event);
-        renderOperations(stringOperationUser); //Pensar rename
+        renderOperation();
     }
 
     function onEqualOperator() {
-        renderOperations(calculateResult());
-        resetOperationUser();
+        renderResult(calculateResult());
+        resetOperation();
     }
 
     function onResetButton() {
-        resetOperationUser();
-        renderOperations(stringOperationUser);
+        resetOperation();
+        renderOperation();
     }
 
     function onRemoveButton() {
         removeLastCharacter();
-        renderOperations(stringOperationUser);
+        renderOperation();
     }
 
     function saveValueChosenByUser(event) {
-        stringOperationUser += event.currentTarget.value;
+        operation += event.currentTarget.value;
     }
 
-    function renderOperations(operation) {
+    function renderOperation() {
         const screenCalculator = document.getElementById("screen-calculator");
         screenCalculator.innerHTML = operation;
     }
 
+    function renderResult(result) {
+        const screenCalculator = document.getElementById("screen-calculator");
+        screenCalculator.innerHTML = result;
+    }
+
     function calculateResult() {
         const constructor = "constructor";
-        const stringToCalculate = `return ${stringOperationUser}`;
+        const stringToCalculate = `return ${operation}`;
         const result = constructor[constructor][constructor](stringToCalculate)();
         return result;
     }
 
-    function resetOperationUser() {
-        stringOperationUser = "";
-    }
-
-    function setStringOperationUser(string) { //Esta es solo para el spec
-        stringOperationUser = string;
+    function resetOperation() {
+        operation = "";
     }
 
     function removeLastCharacter() {
-        stringOperationUser = stringOperationUser.slice(0, -1);
+        operation = operation.slice(0, -1);
+    }
+
+    function setStringOperationUser(string) { //Esta es solo para el spec
+        operation = string;
     }
 
 
