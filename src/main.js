@@ -73,7 +73,8 @@ function application() {
     return {
         start: start,
         calculateResult: calculateResult,
-        setStringOperationUser: setStringOperationUser
+        setStringOperationUser: setStringOperationUser,
+        resetOperation: resetOperation,
     };
 
 }
